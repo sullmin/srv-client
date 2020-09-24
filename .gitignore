@@ -1,0 +1,4 @@
+*.o
+vgcore.*
+run_client
+run_server
