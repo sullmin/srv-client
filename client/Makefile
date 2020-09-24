@@ -11,6 +11,7 @@ SRC	=	src/client.c								\
 		src/terminal_read.c							\
 		src/tools/add_char.c						\
 		src/tools/str_error.c						\
+		src/tools/canonic.c							\
 		src/interprate_display/constante.c			\
 		src/interprate_display/interprate.c			\
 
