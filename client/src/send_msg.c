@@ -30,7 +30,7 @@ int client_loop(int socket_fd)
     bool enable = true;
 
     do {
-        message = terminal_read(socket_fd);
+        message = secondary_loop(socket_fd);
         if (!send_msg(socket_fd, message, &enable))
             return EXIT_ERROR;
     } while(enable);

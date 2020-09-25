@@ -42,7 +42,7 @@ static void my_delete_in_line(char *line)
     }
 }
 
-char *terminal_read(int socket_fd)
+char *secondary_loop(int socket_fd)
 {
     char *line = NULL;
     int ch = 0;

@@ -13,7 +13,7 @@
 #include "tools.h"
 #include "libc.h"
 
-char *terminal_read(int socket_fd);
+char *secondary_loop(int socket_fd);
 int client_loop(int socket_fd);
 void serv_read(int socket_fd);
 void canonical_mode_select(bool enable);
