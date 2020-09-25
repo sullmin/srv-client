@@ -60,25 +60,33 @@ static bool set_color(char *balise)
     return false;
 }
 
+static void distributor_ineract(size_t *u, char *str)
+{
+    bool current_open = false;
+    char *balise = NULL;
+    size_t tmp = *u;
+
+    *u += is_match(str + *u, &current_open);
+    if (current_open) {
+        balise = get_balise(str + *u, u, &current_open);
+        *u += (balise) ? strlen(balise) : 0;
+        if (set_color(balise)) {
+            *u -= 1;
+            return;
+        }
+        else
+            *u = tmp;
+    }
+    if (!current_open) {
+        fprintf(stdout, "%c", str[*u]);
+    }
+    return;
+}
+
 void interprate(char *str)
 {
-    size_t tmp = 0;
-    char *balise = NULL;
-    bool current_open = false;
-
     for (size_t u = 0; str[u]; u++) {
-        tmp = u;
-        u += is_match(str + u, &current_open);
-        if (current_open) {
-            balise = get_balise(str + u, &u, &current_open);
-            u += (balise) ? strlen(balise) : 0;
-            u = (!set_color(balise)) ? tmp : u;
-        }
-        if (!current_open) {
-            fprintf(stdout, "%c", str[u]);
-        }
-        if (!str[u])
-            break;
+        distributor_ineract(&u, str);
     }
     fprintf(stdout, "%s", RESET);
     fflush(stdout);
