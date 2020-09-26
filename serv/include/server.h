@@ -43,13 +43,26 @@ typedef struct client_inf_s
     int max_def;
 } client_inf_t;
 
+enum transmition_type {
+    MSG_TYPE,
+    FILE_TYPE,
+    OTHER
+};
+
+typedef struct msg_s
+{
+    enum transmition_type type;
+    void *transmition;
+    char *extention;
+    size_t size;
+} msg_t;
+
 bool init_serv(server_inf_t *serv);
 bool main_while(server_inf_t *serv);
 bool update_client_list(client_inf_t *client, server_inf_t *serv, fd_set *client_update);
 bool new_connection(client_inf_t *client, server_inf_t *serv, fd_set *client_update);
 bool my_str_error(const char *str);
 bool disconnection_manage(int *client, server_inf_t *serv);
-bool send_transmition(client_inf_t *client, size_t offset, char *buffer);
 bool transmition_manage(server_inf_t *serv, client_inf_t *client, fd_set client_update);
 
 #endif

@@ -11,6 +11,7 @@
 #include "define.h"
 #include "link_t.h"
 #include "tools.h"
+#include "msg_t.h"
 #include "libc.h"
 
 char *secondary_loop(int socket_fd);

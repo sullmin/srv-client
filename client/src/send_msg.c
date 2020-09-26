@@ -7,31 +7,44 @@
 
 #include "client.h"
 
-static bool send_msg(int socket_fd, char *message, bool *enable)
+static bool send_msg(int socket_fd, msg_t *trans, bool *enable)
 {
     int ret = 0;
 
-    if (message) {
-        if (strcmp(message, EOT) == 0) {
+    if (trans->transmition) {
+        if (strcmp(trans->transmition, EOT) == 0) {
             *enable = false;
         }
         else {
-            //fprintf(stderr, "%i : %s\n", strlen(message), message);
-            ret = send(socket_fd, message, strlen(message), 0);
+            ret = write(socket_fd, trans, sizeof(msg_t));
+            if (ret != -1)
+                ret = write(socket_fd, trans->transmition, trans->size);
         }
-        free(message);
+        free(trans->transmition);
     }
     return (ret == -1) ? false : true;
 }
 
+static bool make_trans(char *input, msg_t *trans)
+{
+    trans->type = MSG_TYPE;
+    trans->transmition = input;
+    trans->size = (input) ? strlen(input) : 0;
+    trans->extention = NULL;
+    return true;
+}
+
 int client_loop(int socket_fd)
 {
-    char *message = NULL;
+    msg_t trans = {0};
+    char *input = NULL;
     bool enable = true;
 
     do {
-        message = secondary_loop(socket_fd);
-        if (!send_msg(socket_fd, message, &enable))
+        input = secondary_loop(socket_fd);
+        if (!make_trans(input, &trans))
+            return EXIT_ERROR;
+        if (!send_msg(socket_fd, &trans, &enable))
             return EXIT_ERROR;
     } while(enable);
     return EXIT_SUCCESS;
