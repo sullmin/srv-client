@@ -12,6 +12,7 @@ SRC	=	src/client.c								\
 		src/tools/add_char.c						\
 		src/tools/str_error.c						\
 		src/tools/canonic.c							\
+		src/tools/free_double_tab.c					\
 		src/tools/my_str_to_word_array.c			\
 		src/interprate_display/constante.c			\
 		src/interprate_display/interprate.c			\

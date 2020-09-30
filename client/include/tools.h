@@ -15,5 +15,6 @@ char *add_char(char *str, char c);
 int my_str_error_int(const char *str);
 char **my_str_to_word_array(const char *str, const char *char_list,
     const bool stat);
+void free_double_tab(void **tab);
 
 #endif
