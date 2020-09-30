@@ -14,10 +14,19 @@
 #include "msg_t.h"
 #include "libc.h"
 
+//CLIENT
+
 char *secondary_loop(int socket_fd);
 int client_loop(int socket_fd);
 void serv_read(int socket_fd);
 void canonical_mode_select(bool enable);
+
+//INTERPRATE
+
 void interprate(char *str);
+
+//EXECUTABLE
+
+bool execute_line(msg_t *trans, bool *is_exec);
 
 #endif

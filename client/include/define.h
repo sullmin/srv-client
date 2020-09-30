@@ -20,4 +20,8 @@
 #define PARTHC ">"
 #define RESET "\e[0m"
 
+//EXECUTABLE
+
+#define STARTEXEC "//"
+
 #endif
