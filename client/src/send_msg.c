@@ -11,16 +11,16 @@ static bool send_msg(int socket_fd, msg_t *trans, bool *enable)
 {
     int ret = 0;
 
-    if (trans->transmition) {
-        if (strcmp(trans->transmition, EOT) == 0) {
+    if (trans->transmission) {
+        if (strcmp(trans->transmission, EOT) == 0) {
             *enable = false;
         }
         else {
             ret = write(socket_fd, trans, sizeof(msg_t));
             if (ret != -1)
-                ret = write(socket_fd, trans->transmition, trans->size);
+                ret = write(socket_fd, trans->transmission, trans->size);
         }
-        free(trans->transmition);
+        free(trans->transmission);
     }
     return (ret == -1) ? false : true;
 }
@@ -28,7 +28,7 @@ static bool send_msg(int socket_fd, msg_t *trans, bool *enable)
 static bool make_trans(char *input, msg_t *trans)
 {
     trans->type = MSG_TYPE;
-    trans->transmition = input;
+    trans->transmission = input;
     trans->size = (input) ? strlen(input) : 0;
     trans->extention = NULL;
     return true;

@@ -10,7 +10,7 @@
 
 #include <stdlib.h>
 
-enum transmition_type {
+enum transmission_type {
     MSG_TYPE,
     FILE_TYPE,
     OTHER
@@ -18,8 +18,8 @@ enum transmition_type {
 
 typedef struct msg_s
 {
-    enum transmition_type type;
-    void *transmition;
+    enum transmission_type type;
+    void *transmission;
     char *extention;
     size_t size;
 } msg_t;
