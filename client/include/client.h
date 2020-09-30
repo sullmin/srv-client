@@ -25,8 +25,12 @@ void canonical_mode_select(bool enable);
 
 void interprate(char *str);
 
-//EXECUTABLE
+//EXECUTABLE | BUILTIN
 
 bool execute_line(msg_t *trans, bool *is_exec);
+bool prepare_exec(char *line);
+
+/*== BUILTIN ==*/
+void clear(__attribute__((unused)) char **params);
 
 #endif
