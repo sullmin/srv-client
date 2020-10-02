@@ -19,6 +19,7 @@ static bool manage_receipt(int socket_fd, msg_t *tr)
     if (read_size > 0) {
         if (tr->type == MSG_TYPE) {
             load[read_size] = '\0';
+            fprintf(stdout, "\33[2K\r");
             interprate(load);
         }
         else if (tr->type == FILE_TYPE) {
