@@ -12,6 +12,7 @@
 #include "link_t.h"
 #include "tools.h"
 #include "msg_t.h"
+#include "builtin_t.h"
 #include "libc.h"
 
 //CLIENT
@@ -27,8 +28,8 @@ void interprate(char *str);
 
 //EXECUTABLE | BUILTIN
 
-bool execute_line(msg_t *trans, bool *is_exec);
-bool prepare_exec(char *line);
+bool execute_line(msg_t *trans, bool *is_exec, bool *enable, int socket_fd);
+bool execution_manage(char *line, builtin_t *toolsbag);
 
 /*== BUILTIN ==*/
 void clear(__attribute__((unused)) char **params);

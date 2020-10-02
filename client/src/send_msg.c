@@ -37,13 +37,15 @@ static bool execution_road(int socket_fd, msg_t *trans, bool *enable)
 {
     bool is_exec = false;
 
-    if (!execute_line(trans, &is_exec))
-        return false;
-    if (!is_exec)
-        if (!send_msg(socket_fd, trans, enable))
+    if (!trans->transmission)
+        return true;
+    if (strlen(trans->transmission) != 0) {
+        if (!execute_line(trans, &is_exec, enable, socket_fd))
             return false;
-    if (trans->transmission)
-        free(trans->transmission);
+        if (!is_exec && !send_msg(socket_fd, trans, enable))
+            return false;
+    }
+    free(trans->transmission);
     return true;
 }
 
