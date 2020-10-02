@@ -18,7 +18,10 @@ SRC	=	src/client.c								\
 		src/interprate_display/interprate.c			\
 		src/executable/manage_line.c				\
 		src/executable/execut.c						\
+		src/executable/list_builtin.c				\
+		src/executable/builtin/list.c				\
 		src/executable/builtin/clear.c				\
+		src/executable/builtin/shutdown.c			\
 
 OBJ	=	$(SRC:.c=.o)
 

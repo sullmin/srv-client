@@ -5,12 +5,10 @@
 ** DESCRIPTION
 */
 
-#include <stdio.h>
 #include "builtin_t.h"
 
-void my_clear(builtin_t *toolsbag)
+void my_shutdown(builtin_t *toolsbag)
 {
-    fprintf(stdout, "\e[1;1H\e[2J");
-    fflush(stdout);
+    *(toolsbag->enable) = false;
     toolsbag->stat = SUCCESS;
 }

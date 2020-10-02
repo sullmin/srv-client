@@ -9,6 +9,7 @@
 #define BUILTIN_T_H
 
 #include <stdlib.h>
+#include <stdbool.h>
 
 enum status {
     SUCCESS,
@@ -20,10 +21,11 @@ enum status {
 typedef struct builtin_s
 {
     enum status stat;
-    int serv_fd;
     char **params;
     char *to_exec;
+    char **parth;
     bool *enable;
+    int serv_fd;
 } builtin_t;
 
 #endif

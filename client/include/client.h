@@ -8,11 +8,12 @@
 #ifndef CLIENT_H
 #define CLIENT_H
 
+#include "builtin_link_t.h"
+#include "builtin_t.h"
 #include "define.h"
 #include "link_t.h"
 #include "tools.h"
 #include "msg_t.h"
-#include "builtin_t.h"
 #include "libc.h"
 
 //CLIENT
@@ -32,6 +33,8 @@ bool execute_line(msg_t *trans, bool *is_exec, bool *enable, int socket_fd);
 bool execution_manage(char *line, builtin_t *toolsbag);
 
 /*== BUILTIN ==*/
-void clear(__attribute__((unused)) char **params);
+void my_list(builtin_t *toolsbag);
+void my_clear(builtin_t *toolsbag);
+void my_shutdown(builtin_t *toolsbag);
 
 #endif
