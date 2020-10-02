@@ -14,14 +14,14 @@ int main(void)
     int ret;
 
     if (socket_fd <= 0)
-        my_str_error_int("socket_fd\n");
+        return my_str_error_int("socket_fd ");
     my_serv.sin_family = AF_INET; 
     my_serv.sin_port = htons(PORT); 
     ret = inet_pton(AF_INET, "127.0.0.1", &my_serv.sin_addr);
     if (ret <= 0)
-        my_str_error_int("ip_ret\n");
+        return my_str_error_int("ip_ret ");
     ret = connect(socket_fd, (struct sockaddr *)&my_serv, sizeof(my_serv));
     if (ret < 0)
-        my_str_error_int("connect_ret\n");
+        return my_str_error_int("connect_ret ");
     return client_loop(socket_fd);
 }
