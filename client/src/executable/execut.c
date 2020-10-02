@@ -37,6 +37,8 @@ static bool update_tools(char *once, builtin_t *toolsbag)
         toolsbag->stat = FAILED;
         return false;
     }
+    if (!parth[0])
+        toolsbag->stat = ECHEC;
     toolsbag->parth = parth;
     toolsbag->to_exec = parth[0];
     toolsbag->params = (parth[0]) ? parth + 1 : NULL;
@@ -59,7 +61,8 @@ bool execution_manage(char *line, builtin_t *toolsbag)
     for (size_t i = 0; go_next_exec(toolsbag, mult_exec[i]); i++) {
         if (!update_tools(mult_exec[i], toolsbag))
             return false;
-        select_builtin(toolsbag);
+        if (toolsbag->stat != ECHEC)
+            select_builtin(toolsbag);
         free_double_tab((void **) toolsbag->parth);
     }
     free_double_tab((void **) mult_exec);
