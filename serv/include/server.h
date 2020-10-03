@@ -54,6 +54,7 @@ typedef struct msg_s
     enum transmition_type type;
     void *transmition;
     char *extention;
+    ssize_t size_ext;
     ssize_t size;
 } msg_t;
 

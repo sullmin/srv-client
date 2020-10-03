@@ -41,7 +41,7 @@ static bool update_tools(char *once, builtin_t *toolsbag)
         toolsbag->stat = ECHEC;
     toolsbag->parth = parth;
     toolsbag->to_exec = parth[0];
-    toolsbag->params = (parth[0]) ? parth + 1 : NULL;
+    toolsbag->params = (parth[0] && parth[1]) ? parth + 1 : NULL;
     return true;
 }
 

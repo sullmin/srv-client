@@ -7,16 +7,19 @@
 
 #include "server.h"
 
-static bool send_transmition(client_inf_t *client, size_t offset, msg_t *trans)
+static bool send_transmition(client_inf_t *client, size_t offset, msg_t *tr)
 {
     int ret = 0;
 
-    fprintf(stdout, "%s\n", (char *) trans->transmition);
+    if (tr->type == MSG_TYPE)
+        fprintf(stdout, "%s\n", (char *) tr->transmition);
     for (size_t u = 0; u < MAX_CLIENT; u++) {
         if (offset != u && client->client_list[u] != 0) {
-            ret = write(client->client_list[u], trans, sizeof(msg_t));
+            ret = write(client->client_list[u], tr, sizeof(msg_t));
             if (ret != -1)
-                ret = write(client->client_list[u], trans->transmition, trans->size);
+                ret = write(client->client_list[u], tr->transmition, tr->size);
+            if (ret != -1 && tr->type == FILE_TYPE)
+                ret = write(client->client_list[u], tr->extention, tr->size_ext);
         }
     }
     return (ret != -1) ? true : false;
@@ -26,6 +29,7 @@ static bool load_trans(msg_t *tr, int fd_actual)
 {
     int read_size = 0;
     char *load = (tr->size > 0) ? malloc(sizeof(char) * (tr->size + 1)) : NULL;
+    char *ext = (tr->type == FILE_TYPE) ? malloc(sizeof(char) * (tr->size_ext + 1)) : NULL;
 
     if (!load)
         return false;
@@ -33,6 +37,12 @@ static bool load_trans(msg_t *tr, int fd_actual)
     if (read_size > 0) {
         if (tr->type == MSG_TYPE)
             load[read_size] = '\0';
+        else if (tr->type == FILE_TYPE) {
+            read(fd_actual, ext, tr->size_ext);
+            ext[tr->size_ext] = '\0';
+            tr->extention = ext;
+            fprintf(stdout, "File transmition of size %li\n", tr->size);
+        }
         tr->transmition = (void *) load;
     }
     else {
@@ -59,6 +69,7 @@ bool transmition_manage(server_inf_t *serv, client_inf_t *client, fd_set client_
                     return false;
                 ret = send_transmition(client, i, &trans);
                 free(trans.transmition);
+                free(trans.extention);
             }
             if (!ret)
                 return false;

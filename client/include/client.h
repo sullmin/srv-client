@@ -18,10 +18,11 @@
 
 //CLIENT
 
-char *secondary_loop(int socket_fd);
-int client_loop(int socket_fd);
 void serv_read(int socket_fd);
+int client_loop(int socket_fd);
+char *secondary_loop(int socket_fd);
 void canonical_mode_select(bool enable);
+bool send_msg(int socket_fd, msg_t *trans);
 
 //INTERPRATE
 
@@ -34,6 +35,7 @@ bool execution_manage(char *line, builtin_t *toolsbag);
 
 /*== BUILTIN ==*/
 void my_list(builtin_t *toolsbag);
+void my_send(builtin_t *toolsbag);
 void my_clear(builtin_t *toolsbag);
 void my_shutdown(builtin_t *toolsbag);
 

@@ -7,23 +7,6 @@
 
 #include "client.h"
 
-static bool send_msg(int socket_fd, msg_t *trans, bool *enable)
-{
-    int ret = 0;
-
-    if (trans->transmission) {
-        if (strcmp(trans->transmission, EOT) == 0) {
-            *enable = false;
-        }
-        else {
-            ret = write(socket_fd, trans, sizeof(msg_t));
-            if (ret != -1)
-                ret = write(socket_fd, trans->transmission, trans->size);
-        }
-    }
-    return (ret == -1) ? false : true;
-}
-
 static bool make_trans(char *input, msg_t *trans)
 {
     trans->type = MSG_TYPE;
@@ -42,11 +25,23 @@ static bool execution_road(int socket_fd, msg_t *trans, bool *enable)
     if (strlen(trans->transmission) != 0) {
         if (!execute_line(trans, &is_exec, enable, socket_fd))
             return false;
-        if (!is_exec && !send_msg(socket_fd, trans, enable))
+        if (!is_exec && !send_msg(socket_fd, trans))
             return false;
     }
     free(trans->transmission);
     return true;
+}
+
+bool send_msg(int socket_fd, msg_t *trans)
+{
+    int ret = 0;
+
+    if (trans->transmission) {
+        ret = write(socket_fd, trans, sizeof(msg_t));
+        if (ret != -1)
+            ret = write(socket_fd, trans->transmission, trans->size);
+    }
+    return (ret == -1) ? false : true;
 }
 
 int client_loop(int socket_fd)
