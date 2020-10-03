@@ -54,7 +54,7 @@ typedef struct msg_s
     enum transmition_type type;
     void *transmition;
     char *extention;
-    size_t size;
+    ssize_t size;
 } msg_t;
 
 bool init_serv(server_inf_t *serv);

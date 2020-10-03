@@ -21,7 +21,7 @@ typedef struct msg_s
     enum transmission_type type;
     void *transmission;
     char *extention;
-    size_t size;
+    ssize_t size;
 } msg_t;
 
 #endif
