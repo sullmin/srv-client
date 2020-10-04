@@ -37,6 +37,7 @@ bool execution_manage(char *line, builtin_t *toolsbag);
 void my_list(builtin_t *toolsbag);
 void my_send(builtin_t *toolsbag);
 void my_clear(builtin_t *toolsbag);
+void my_color(builtin_t *toolsbag);
 void my_shutdown(builtin_t *toolsbag);
 
 #endif

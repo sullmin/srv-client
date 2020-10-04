@@ -29,5 +29,9 @@
 #define LOADING_FILE_ERROR "Error during the file loading"
 #define LOAD_FILE_REPO "./load/"
 #define RECEIPT_FILE_MSG "File has been receive at : "
+#define CODE_PRES "This is the balise code "
+#define CODE_BEFORE "before balise application "
+#define CODE_AFTER "after balise application "
+#define CODE_DISPLAY "It's a test"
 
 #endif

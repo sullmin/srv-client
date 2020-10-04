@@ -24,6 +24,7 @@ SRC	=	src/client.c								\
 		src/executable/builtin/list.c				\
 		src/executable/builtin/send.c				\
 		src/executable/builtin/clear.c				\
+		src/executable/builtin/color.c				\
 		src/executable/builtin/shutdown.c			\
 
 OBJ	=	$(SRC:.c=.o)
