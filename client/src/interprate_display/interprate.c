@@ -105,7 +105,8 @@ size_t interprate(char *str, bool type)
         }
     }
     fprintf(stdout, "%s\n", RESET);
-    fill_line(w.ws_col);
+    if (type)
+        fill_line(w.ws_col);
     fflush(stdout);
     return nb_line;
 }
