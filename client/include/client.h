@@ -26,7 +26,7 @@ bool send_msg(int socket_fd, msg_t *trans);
 
 //INTERPRATE
 
-void interprate(char *str);
+void interprate(char *str, bool type);
 
 //EXECUTABLE | BUILTIN
 

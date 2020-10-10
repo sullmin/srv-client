@@ -18,6 +18,8 @@
 #define PARTHO "<"
 #define PARTHC ">"
 #define RESET "\e[0m"
+#define START_TAPING "=> "
+#define MAX_LEN 140
 
 //EXECUTABLE
 

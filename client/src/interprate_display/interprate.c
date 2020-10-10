@@ -45,22 +45,24 @@ static char *get_balise(char *point, size_t *offset, bool *current_open)
     return ret;
 }
 
-static bool set_color(char *balise)
+static bool set_color(char *balise, bool type)
 {
-    if (balise) {
-        for (size_t i = 0; KEY_LINK[i].str[0] && KEY_LINK[i].replace[0]; i++) {
-            if (strcmp(balise, KEY_LINK[i].str) == 0) {
+    if (!balise)
+        return false;
+    for (size_t i = 0; KEY_LINK[i].str[0] && KEY_LINK[i].replace[0]; i++) {
+        if (strcmp(balise, KEY_LINK[i].str) == 0) {
+            if (KEY_LINK[i].type || !type)
                 fprintf(stdout, "%s", KEY_LINK[i].replace);
-                free(balise);
-                return true;
-            }
+            free(balise);
+            return true;
         }
-        free(balise);
     }
+    free(balise);
     return false;
 }
 
-static void distributor_ineract(size_t *u, char *str)
+static void distributor_ineract(size_t *u, char *str, size_t *pos_term,
+    bool type)
 {
     bool current_open = false;
     char *balise = NULL;
@@ -70,7 +72,7 @@ static void distributor_ineract(size_t *u, char *str)
     if (current_open) {
         balise = get_balise(str + *u, u, &current_open);
         *u += (balise) ? strlen(balise) : 0;
-        if (set_color(balise)) {
+        if (set_color(balise, type)) {
             *u -= 1;
             return;
         }
@@ -79,14 +81,21 @@ static void distributor_ineract(size_t *u, char *str)
     }
     if (!current_open) {
         fprintf(stdout, "%c", str[*u]);
+        *pos_term += 1;
     }
     return;
 }
 
-void interprate(char *str)
+void interprate(char *str, bool type)
 {
-    for (size_t u = 0; str[u]; u++) {
-        distributor_ineract(&u, str);
+    struct winsize w;
+    size_t pos_term = 0;
+    size_t max_size = 0;
+
+    ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
+    max_size = (type) ? w.ws_col - strlen(START_TAPING) : MAX_LEN;
+    for (size_t u = 0; str[u] && pos_term < max_size; u++) {
+        distributor_ineract(&u, str, &pos_term, type);
     }
     fprintf(stdout, "%s", RESET);
     fflush(stdout);

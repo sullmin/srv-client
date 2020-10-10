@@ -31,7 +31,7 @@ static void msg_receipt(char *load, int read_size)
 {
     load[read_size] = '\0';
     fprintf(stdout, "\33[2K\r");
-    interprate(load);
+    interprate(load, false);
     fprintf(stdout, "\n");
 }
 
