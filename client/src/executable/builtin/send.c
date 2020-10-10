@@ -30,7 +30,7 @@ static bool load_file(char *filepath, msg_t *tr)
     if (fd == -1)
         return false;
     tr->size = get_file_size(fd);
-    if (tr->size == -1)
+    if (tr->size == -1 || tr->size > 80000)
         return false;
     tr->transmission = get_data_file(fd, tr->size);
     if (!tr->transmission)
