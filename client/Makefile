@@ -38,6 +38,7 @@ all:	$(NAME)
 
 $(NAME):	$(OBJ)
 	gcc -o	$(NAME)	$(OBJ) -I ./include/
+	mkdir -p load
 
 clean:
 	rm	-f 	$(OBJ)
