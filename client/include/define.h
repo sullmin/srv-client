@@ -19,7 +19,8 @@
 #define PARTHC ">"
 #define RESET "\e[0m"
 #define START_TAPING "=> "
-#define MAX_LEN 140
+#define END_LINE '_'
+#define MAX_LEN 1400
 
 //EXECUTABLE
 

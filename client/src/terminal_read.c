@@ -24,12 +24,12 @@ static int my_getch(void)
     return (int) buf[0];
 }
 
-static void display_input(char *line)
+static void display_input(char *line, size_t *last_size)
 {
     if (line) {
-        fprintf(stdout, "%s%s", "\33[2K\r", START_TAPING);
-        interprate(line, true);
-        fflush(stdout);
+        delete_line(*last_size + 2);
+        fprintf(stdout, "%s", START_TAPING);
+        *last_size = interprate(line, true);
     }
 }
 
@@ -55,17 +55,19 @@ static bool is_correct_char(const char ch, const char *line)
 
 char *secondary_loop(int socket_fd)
 {
+    size_t last_size = 0;
     char *line = NULL;
     int ch = 0;
 
     while (ch != '\n') {
-        display_input(line);
+        display_input(line, &last_size);
         ch = my_getch();
         if (ch == 127)
             my_delete_in_line(line);
         else if (is_correct_char(ch, line))
             line = add_char(line, ch);
-        serv_read(socket_fd);
+        serv_read(socket_fd, &last_size);
+        usleep(10000);
     }
     fprintf(stdout, "\n");
     return line;

@@ -19,5 +19,7 @@ void free_double_tab(void **tab);
 ssize_t get_file_size(int fd);
 char *str_dup_cat(size_t nb_str, ... );
 char *get_time_in_str(void);
+void delete_line(size_t nb_to_delete);
+void fill_line(size_t len_line);
 
 #endif

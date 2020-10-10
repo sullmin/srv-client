@@ -86,17 +86,26 @@ static void distributor_ineract(size_t *u, char *str, size_t *pos_term,
     return;
 }
 
-void interprate(char *str, bool type)
+size_t interprate(char *str, bool type)
 {
+    size_t nb_line = 1;
     struct winsize w;
     size_t pos_term = 0;
     size_t max_size = 0;
 
     ioctl(STDOUT_FILENO, TIOCGWINSZ, &w);
     max_size = (type) ? w.ws_col - strlen(START_TAPING) : MAX_LEN;
-    for (size_t u = 0; str[u] && pos_term < max_size; u++) {
+    for (size_t u = 0; str[u]; u++) {
         distributor_ineract(&u, str, &pos_term, type);
+        if (pos_term >= max_size) {
+            fprintf(stdout, "\n");
+            pos_term = 0;
+            max_size += (nb_line == 1) ? strlen(START_TAPING) : 0;
+            nb_line++;
+        }
     }
-    fprintf(stdout, "%s", RESET);
+    fprintf(stdout, "%s\n", RESET);
+    fill_line(w.ws_col);
     fflush(stdout);
+    return nb_line;
 }

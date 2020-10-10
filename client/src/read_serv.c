@@ -27,12 +27,11 @@ static bool file_receipt(msg_t *tr)
     return true;
 }
 
-static void msg_receipt(char *load, int read_size)
+static void msg_receipt(char *load, int read_size, size_t *last_size)
 {
     load[read_size] = '\0';
-    fprintf(stdout, "\33[2K\r");
+    delete_line(*last_size + 2);
     interprate(load, false);
-    fprintf(stdout, "\n");
 }
 
 static bool file_manage(msg_t *tr, char *load, int socket_fd)
@@ -53,7 +52,7 @@ static bool file_manage(msg_t *tr, char *load, int socket_fd)
     return true;
 }
 
-static bool manage_receipt(int socket_fd, msg_t *tr)
+static bool manage_receipt(int socket_fd, msg_t *tr, size_t *last_size)
 {
     int read_size = 0;
     char *load = (tr->size > 0) ? malloc(sizeof(char) * (tr->size + 1)) : NULL;
@@ -64,7 +63,7 @@ static bool manage_receipt(int socket_fd, msg_t *tr)
     read_size = read(socket_fd, load, tr->size);
     if (read_size > 0) {
         if (tr->type == MSG_TYPE) {
-            msg_receipt(load, read_size);
+            msg_receipt(load, read_size, last_size);
         }
         else if (tr->type == FILE_TYPE){
             if (!file_manage(tr, load, socket_fd))
@@ -75,7 +74,7 @@ static bool manage_receipt(int socket_fd, msg_t *tr)
     return true;
 }
 
-void serv_read(int socket_fd)
+void serv_read(int socket_fd, size_t *last_size)
 {
     msg_t receipt = {0};
     int read_size;
@@ -85,7 +84,8 @@ void serv_read(int socket_fd)
     fcntl(socket_fd, F_SETFL, flags | O_NONBLOCK);
     read_size = read(socket_fd, &receipt, sizeof(msg_t));
     if (read_size > 0) {
-        manage_receipt(socket_fd, &receipt);
+        manage_receipt(socket_fd, &receipt, last_size);
+        *last_size =- 1;
     }
     canonical_mode_select(false);
 }

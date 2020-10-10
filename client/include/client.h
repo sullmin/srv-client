@@ -18,7 +18,7 @@
 
 //CLIENT
 
-void serv_read(int socket_fd);
+void serv_read(int socket_fd, size_t *last_size);
 int client_loop(int socket_fd);
 char *secondary_loop(int socket_fd);
 void canonical_mode_select(bool enable);
@@ -26,7 +26,7 @@ bool send_msg(int socket_fd, msg_t *trans);
 
 //INTERPRATE
 
-void interprate(char *str, bool type);
+size_t interprate(char *str, bool type);
 
 //EXECUTABLE | BUILTIN
 
