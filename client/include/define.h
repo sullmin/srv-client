@@ -33,5 +33,6 @@
 #define CODE_BEFORE "before balise application "
 #define CODE_AFTER "after balise application "
 #define CODE_DISPLAY "It's a test"
+#define DISCONNECTED "You are already disconnected"
 
 #endif

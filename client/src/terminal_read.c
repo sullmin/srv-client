@@ -13,8 +13,10 @@ static int my_getch(void)
     char buf[5] = {0};
     int flags = fcntl(1, F_GETFL, 0);
 
-    fcntl(1, F_SETFL, flags | O_NONBLOCK);
+    if (flags < 0)
+        return -1;
     canonical_mode_select(true);
+    fcntl(1, F_SETFL, flags | O_NONBLOCK);
     ret = read(0, buf, 4);
     if (ret <= 0)
         return 0;
