@@ -13,6 +13,7 @@ SRC	=	src/client.c								\
 		src/tools/add_char.c						\
 		src/tools/str_error.c						\
 		src/tools/my_strcat.c						\
+		src/tools/get_time_str.c					\
 		src/tools/get_file_size.c					\
 		src/tools/free_double_tab.c					\
 		src/tools/my_str_to_word_array.c			\

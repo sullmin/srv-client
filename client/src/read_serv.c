@@ -9,7 +9,8 @@
 
 static bool file_receipt(msg_t *tr)
 {
-    char *filepath = str_dup_cat(2, LOAD_FILE_REPO, tr->extention);
+    char *time_str = get_time_in_str();
+    char *filepath = str_dup_cat(3, LOAD_FILE_REPO, time_str, tr->extention);
     int fd = 0;
 
     if (!filepath)
