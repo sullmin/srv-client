@@ -8,10 +8,12 @@
 SRC	=	src/client.c								\
 		src/send_msg.c								\
 		src/read_serv.c								\
+		src/user_manage.c							\
 		src/terminal_read.c							\
 		src/tools/canonic.c							\
 		src/tools/add_char.c						\
 		src/tools/str_error.c						\
+		src/tools/strisnum.c						\
 		src/tools/my_strcat.c						\
 		src/tools/fill_line.c						\
 		src/tools/delete_line.c						\

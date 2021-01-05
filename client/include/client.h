@@ -9,6 +9,7 @@
 #define CLIENT_H
 
 #include "builtin_link_t.h"
+#include "user_params_t.h"
 #include "builtin_t.h"
 #include "define.h"
 #include "link_t.h"
@@ -23,6 +24,7 @@ int client_loop(int socket_fd);
 char *secondary_loop(int socket_fd);
 void canonical_mode_select(bool enable);
 bool send_msg(int socket_fd, msg_t *trans);
+bool set_user_params(user_params_t *params, int ac, char **av);
 
 //INTERPRATE
 

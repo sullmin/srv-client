@@ -11,7 +11,8 @@
 //CLIENT
 
 #define EXIT_ERROR 84
-#define PORT 8080
+#define PORT "8080"
+#define DEFAULT_IP "127.0.0.1"
 
 //INTERPRATE
 
@@ -37,5 +38,11 @@
 #define CODE_AFTER "after balise application "
 #define CODE_DISPLAY "It's a test"
 #define DISCONNECTED "You are already disconnected"
+
+#define USER_ERROR_PORT "Warning FAILED: Your input is not correct, it's not a port (ex : 8080)"
+#define USER_ERROR_PARAMS "Warning FAILED: Your params are not correct"
+#define USER_ERROR_PARAMS_F ""
+#define USER_ERROR_PARAMS_O " or "
+#define USER_ERROR_PARAMS_S " PORT_VALUE IP_ADDRESS"
 
 #endif

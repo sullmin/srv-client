@@ -21,5 +21,6 @@ char *str_dup_cat(size_t nb_str, ... );
 char *get_time_in_str(void);
 void delete_line(size_t nb_to_delete);
 void fill_line(size_t len_line);
+bool strisnum(const char *str);
 
 #endif
