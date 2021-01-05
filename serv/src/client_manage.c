@@ -29,6 +29,16 @@ bool update_client_list(client_inf_t *client, server_inf_t *serv, fd_set *client
     return true;
 }
 
+static bool new_user_welcome(int fd_new_client)
+{
+    msg_t tr = {0};
+
+    tr.type = MSG_TYPE;
+    tr.size = strlen(WELCOME_MSG);
+    tr.transmition = WELCOME_MSG;
+    return my_tram(fd_new_client, &tr);
+}
+
 bool new_connection(client_inf_t *client, server_inf_t *serv, fd_set *client_update)
 {
     int addrlen = sizeof(serv->address);
@@ -38,9 +48,9 @@ bool new_connection(client_inf_t *client, server_inf_t *serv, fd_set *client_upd
         new_client = accept(serv->socket, (struct sockaddr *) &serv->address, (socklen_t *) &addrlen);
         if (new_client < 0)
             return my_str_error(ERROR_ACCEPT);
-        //printf("New connection, socket fd is %d, ip is : %s, port : %d  \n", new_client, inet_ntoa(serv->address.sin_addr), ntohs (serv->address.sin_port));
-        //if(send(new_client, "Welcome\n", strlen("Welcome\n"), 0) != strlen("Welcome\n"))
-        //    return my_str_error(ERROR_SEND);
+        printf("New client connection, user socket : %d, user ip : %s, user port : %d\n", new_client, inet_ntoa(serv->address.sin_addr), ntohs(serv->address.sin_port));
+        if (!new_user_welcome(new_client))
+            return false;
         for (size_t i = 0; i < MAX_CLIENT; i++) {
             if (client->client_list[i] == 0 ) {
                 client->client_list[i] = new_client;

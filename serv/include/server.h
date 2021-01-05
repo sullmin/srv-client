@@ -15,6 +15,7 @@
 #include "server_inf_t.h"
 
 bool strisnum(const char *str);
+int my_tram(int fd_to, msg_t *tr);
 bool my_str_error(const char *str);
 bool init_serv(server_inf_t *serv);
 bool main_while(server_inf_t *serv);

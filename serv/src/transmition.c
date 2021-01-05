@@ -7,6 +7,17 @@
 
 #include "server.h"
 
+int my_tram(int fd_to, msg_t *tr)
+{
+    int ret = write(fd_to, tr, sizeof(msg_t));
+
+    if (ret != -1)
+        ret = write(fd_to, tr->transmition, tr->size);
+    if (ret != -1 && tr->type == FILE_TYPE)
+        ret = write(fd_to, tr->extention, tr->size_ext);
+    return ret;
+}
+
 static bool send_transmition(client_inf_t *client, size_t offset, msg_t *tr)
 {
     int ret = 0;
@@ -15,11 +26,7 @@ static bool send_transmition(client_inf_t *client, size_t offset, msg_t *tr)
         fprintf(stdout, "%s\n", (char *) tr->transmition);
     for (size_t u = 0; u < MAX_CLIENT; u++) {
         if (offset != u && client->client_list[u] != 0) {
-            ret = write(client->client_list[u], tr, sizeof(msg_t));
-            if (ret != -1)
-                ret = write(client->client_list[u], tr->transmition, tr->size);
-            if (ret != -1 && tr->type == FILE_TYPE)
-                ret = write(client->client_list[u], tr->extention, tr->size_ext);
+            ret = my_tram(client->client_list[u], tr);
         }
     }
     return (ret != -1) ? true : false;

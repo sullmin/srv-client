@@ -27,4 +27,6 @@
 #define USER_ERROR_PARAMS_O " or "
 #define USER_ERROR_PARAMS_S " PORT_VALUE"
 
+#define WELCOME_MSG "Welcome Billy"
+
 #endif
