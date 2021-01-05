@@ -12,6 +12,7 @@
 
 typedef struct server_inf_s
 {
+    int port;
     int socket;
     struct sockaddr_in address;
 } server_inf_t;

@@ -11,6 +11,7 @@ SRC	=	src/built_serv.c	\
 		src/tools.c			\
 		src/main.c			\
 		src/transmition.c	\
+		src/user_manage.c	\
 
 OBJ	=	$(SRC:.c=.o)
 
