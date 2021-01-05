@@ -53,20 +53,20 @@ static bool is_correct_char(const char ch, const char *line)
     return false;
 }
 
-char *secondary_loop(int socket_fd)
+char *secondary_loop(int socket_fd, bool *enable)
 {
     size_t last_size = 0;
     char *line = NULL;
     int ch = 0;
 
-    while (ch != '\n') {
+    while (ch != '\n' && *enable) {
         display_input(line, &last_size);
         ch = my_getch();
         if (ch == 127)
             my_delete_in_line(line);
         else if (is_correct_char(ch, line))
             line = add_char(line, ch);
-        serv_read(socket_fd, &last_size);
+        serv_read(socket_fd, &last_size, enable);
         usleep(10000);
     }
     fprintf(stdout, "\n");

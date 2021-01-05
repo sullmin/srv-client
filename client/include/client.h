@@ -19,9 +19,9 @@
 
 //CLIENT
 
-void serv_read(int socket_fd, size_t *last_size);
+void serv_read(int socket_fd, size_t *last_size, bool *enable);
 int client_loop(int socket_fd);
-char *secondary_loop(int socket_fd);
+char *secondary_loop(int socket_fd, bool *enable);
 void canonical_mode_select(bool enable);
 bool send_msg(int socket_fd, msg_t *trans);
 bool set_user_params(user_params_t *params, int ac, char **av);

@@ -51,7 +51,7 @@ int client_loop(int socket_fd)
     bool enable = true;
 
     do {
-        input = secondary_loop(socket_fd);
+        input = secondary_loop(socket_fd, &enable);
         if (!make_trans(input, &trans))
             return EXIT_ERROR;
         if (!execution_road(socket_fd, &trans, &enable))

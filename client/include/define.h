@@ -45,4 +45,6 @@
 #define USER_ERROR_PARAMS_O " or "
 #define USER_ERROR_PARAMS_S " PORT_VALUE IP_ADDRESS"
 
+#define CONNECTION_LOST "Connection lost with server"
+
 #endif

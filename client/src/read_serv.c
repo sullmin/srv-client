@@ -74,7 +74,7 @@ static bool manage_receipt(int socket_fd, msg_t *tr, size_t *last_size)
     return true;
 }
 
-void serv_read(int socket_fd, size_t *last_size)
+void serv_read(int socket_fd, size_t *last_size, bool *enable)
 {
     msg_t receipt = {0};
     int read_size;
@@ -86,6 +86,9 @@ void serv_read(int socket_fd, size_t *last_size)
     if (read_size > 0) {
         manage_receipt(socket_fd, &receipt, last_size);
         *last_size =- 1;
+    } else if (read_size == 0) {
+        printf("%s\n", CONNECTION_LOST);
+        *enable = false;
     }
     canonical_mode_select(false);
 }
