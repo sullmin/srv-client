@@ -1,0 +1,24 @@
+This is my first server/client in c, using TCP.
+To use it, you have to use compile the source files.
+Thus, you can use the Makefile in ./client and in ./serv.
+After, that you have two binary file: run_client and run_server.
+
+At first run the binary run_server :
+./run_server (run with default params PORT : 8080)
+./run_server PORT_VALUE (run with port value in first params)
+
+In second time, the client can connect:
+./run_client (run with default params PORT : 8080 IP : 127.0.0.1)
+./run_client PORT_VALUE PORT_VALUE
+
+How to use client:
+1. write your message in terminal en press ENTER for send msg
+2. In your message, you can use flag like this : "<Red><Undelined>test" print "test" in red and underline
+3. You can execute commande using "//"
+    - list : list of commande
+    - clear : clear the terminal
+    - send : send file with the filepath "//send img.png"
+    - color : list of flag in message
+    - shutdown : end of program
+
+You can help me with donation of Brave token at : https://github.com/sullmin
